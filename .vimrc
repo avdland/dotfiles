@@ -38,7 +38,7 @@ set directory=~/.vim/tmp
 
 " show invisibles
 set list
-set listchars=tab:>�,trail:~,extends:>,precedes:< " ---> for tabs, and ---- for trailing spaces
+set listchars=tab:>-,trail:~,extends:>,precedes:<
 
 set wildignore=*.o,*.obj,*.bak,*.exe,*.class,*.so,*.tar,*.tgz,*.zip,*.pdf,*.svn
 set wildmode=full
