@@ -82,11 +82,8 @@ imap <silent> <Home> <C-O><Home>
 " clear search highlights by pressing ,/
 nmap <silent> ,/ :nohlsearch<CR>
 
-" sudo write file: w!! - makes pressing :w very slow
-"cmap w!! w !sudo tee % >/dev/null
-
-" Enable italics because
-"let g:gruvbox_italic=1
+" :W sudo saves file
+command W w !sudo tee % > /dev/null
 
 " Fixes broken NERDTree arrows
 "let g:NERDTreeDirArrowExpandable = '+'
@@ -96,5 +93,9 @@ nmap <silent> ,/ :nohlsearch<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-colorscheme solarized
-let g:airline_theme='solarized'
+"colorscheme solarized
+"let g:airline_theme='solarized'
+
+colorscheme gruvbox
+let g:gruvbox_italic=1
+let g:airline_theme='gruvbox'
