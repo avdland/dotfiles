@@ -18,7 +18,7 @@ else
     set undodir=~/.vim/tmp
     " temporary files directory
     set backupdir=~/.vim/tmp
-    set directory=~~/.vim/tmp
+    set directory=~/.vim/tmp
   endif
 endif
 
