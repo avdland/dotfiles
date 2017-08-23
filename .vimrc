@@ -15,10 +15,10 @@ if has("win32")
   set directory=$HOME\vimfiles\tmp
 else
   if has("unix")
-    set undodir=$HOME/tmp
+    set undodir=~/.vim/tmp
     " temporary files directory
-    set backupdir=$HOME/tmp
-    set directory=~$HOME/tmp
+    set backupdir=~/.vim/tmp
+    set directory=~~/.vim/tmp
   endif
 endif
 
