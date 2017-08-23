@@ -1,11 +1,26 @@
 execute pathogen#infect()
 syntax enable
 
+set noswapfile
+
 " presistent undo
 set undofile
 set undolevels=500
 set undoreload=500
-set undodir=~/.vim/tmp
+
+if has("win32")
+  set undodir=$HOME\vimfiles\tmp
+  " temporary files directory
+  set backupdir=$HOME\vimfiles\tmp
+  set directory=$HOME\vimfiles\tmp
+else
+  if has("unix")
+    set undodir=~/.vim/tmp
+    " temporary files directory
+    set backupdir=~/.vim/tmp
+    set directory=~/.vim/tmp
+  endif
+endif
 
 " GUI
 set number                   " show line numbers
@@ -31,10 +46,6 @@ set scrolloff=3              " Keep 3 context lines above and below the cursor
 set backspace=2              " Allow backspacing over autoindent, EOL, and BOL
 set showmatch                " Briefly jump to a paren once it's balanced
 set matchtime=2              " (for only .2 seconds).
-
-" temporary files directory
-set backupdir=~/.vim/tmp
-set directory=~/.vim/tmp
 
 " show invisibles
 set list
@@ -70,7 +81,7 @@ noremap <F2> :split <CR>
 noremap <F3> :vsplit <CR>
 
 " Start NERDTree by pressing F4
-noremap <F4> :NERDTreeToggle <CR>
+" noremap <F4> :NERDTreeToggle <CR>
 
 " Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR> 
@@ -90,12 +101,27 @@ command W w !sudo tee % > /dev/null
 "let g:NERDTreeDirArrowCollapsible = '~'
 
 " start NERDTree when no file is specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-"colorscheme solarized
-"let g:airline_theme='solarized'
-
-colorscheme gruvbox
-let g:gruvbox_italic=1
-let g:airline_theme='gruvbox'
+if has("win32")
+  if has("gui_running") " GVIM
+    " Removes the menubar
+    set guioptions -=m
+    " Removes the toolbar
+    set guioptions -=T
+    " Removes the scrollbar
+    set guioptions -=r
+    let g:gruvbox_italic=0
+    let g_airline_theme='gruvbox'
+    colorscheme gruvbox
+  else " VIM via CMD
+    colorscheme industry
+  endif
+else
+  if has("unix")
+    let g:gruvbox_italic=1
+    let g_airline_theme='gruvbox'
+    colorscheme gruvbox
+  endif
+endif
