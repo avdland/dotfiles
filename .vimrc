@@ -15,10 +15,10 @@ if has("win32")
   set directory=$HOME\vimfiles\tmp
 else
   if has("unix")
-    set undodir=~/.vim/tmp
+    set undodir=$HOME/tmp
     " temporary files directory
-    set backupdir=~/.vim/tmp
-    set directory=~/.vim/tmp
+    set backupdir=$HOME/tmp
+    set directory=~$HOME/tmp
   endif
 endif
 
@@ -81,7 +81,7 @@ noremap <F2> :split <CR>
 noremap <F3> :vsplit <CR>
 
 " Start NERDTree by pressing F4
-" noremap <F4> :NERDTreeToggle <CR>
+noremap <F4> :NERDTreeToggle <CR>
 
 " Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR> 
