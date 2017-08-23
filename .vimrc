@@ -10,13 +10,11 @@ set undoreload=500
 
 if has("win32")
   set undodir=$HOME\vimfiles\tmp
-  " temporary files directory
   set backupdir=$HOME\vimfiles\tmp
   set directory=$HOME\vimfiles\tmp
 else
   if has("unix")
     set undodir=~/.vim/tmp
-    " temporary files directory
     set backupdir=~/.vim/tmp
     set directory=~/.vim/tmp
   endif
