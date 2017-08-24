@@ -12,11 +12,20 @@ if has("win32")
   set undodir=$HOME\vimfiles\tmp
   set backupdir=$HOME\vimfiles\tmp
   set directory=$HOME\vimfiles\tmp
+
+  try
+    source $HOME\vimfiles\mybg
+  catch
+  endtry
 else
   if has("unix")
     set undodir=~/.vim/tmp
     set backupdir=~/.vim/tmp
     set directory=~/.vim/tmp
+    try
+      source ~/.vim/mybg
+    catch
+    endtry
   endif
 endif
 
@@ -25,7 +34,6 @@ set number                   " show line numbers
 set ruler                    " show ruler
 set hlsearch                 " higlight search results
 set incsearch                " show search matches as you type
-set background=dark          " set darkground
 set cursorline               " set current horizontal row background
 set laststatus=2             " enable statusbar
 
@@ -57,16 +65,42 @@ set noerrorbells " dont beep
 
 " Disable annoying auto line break
 fu! DisableBr()
-    set wrap
-    set linebreak
-    set nolist
-    set textwidth=0
-    set wrapmargin=0
-    set fo-=t
+  set wrap
+  set linebreak
+  set nolist
+  set textwidth=0
+  set wrapmargin=0
+  set fo-=t
 endfu
 
 " Disable line breaks for all file types
 :au BufNewFile,BufRead *.* call DisableBr()
+
+function! BgFilename()
+  if has('win32')
+    return $HOME.'\vimfiles\mybg'
+  else
+    return '~/.vim/mybg'
+  fi
+endfunction
+
+function! SaveBackground()
+  let f = BgFilename()
+
+  for line in readfile(f)
+    let clr = &bg
+    if clr == "dark"
+      let txt = ["set background=light"]
+      set background=light
+    else
+      let txt = ["set background=dark"]
+      set background=dark
+    endif
+  endfor
+  call writefile(txt, f, "b")
+endfunction
+
+nnoremap <F5> :call SaveBackground() <CR>
 
 " Easy window navigation
 map <C-left> <C-w>h
@@ -79,10 +113,10 @@ noremap <F2> :split <CR>
 noremap <F3> :vsplit <CR>
 
 " Start NERDTree by pressing F4
-noremap <F4> :NERDTreeToggle <CR>
+" noremap <F4> :NERDTreeToggle <CR>
 
 " Remove all trailing whitespace by pressing F5
-nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR> 
+nnoremap <F9> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR> 
 
 " Pressing Home will move cursor to first word, not beginning of line
 noremap <expr> <silent> <Home> col('.') == match(getline('.'),'\S')+1 ? '0' : '^'
@@ -123,3 +157,4 @@ else
     colorscheme gruvbox
   endif
 endif
+
