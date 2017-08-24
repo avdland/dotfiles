@@ -19,11 +19,11 @@ if has("win32")
   endtry
 else
   if has("unix")
-    set undodir=~/.vim/tmp
-    set backupdir=~/.vim/tmp
-    set directory=~/.vim/tmp
+    set undodir=$HOME/.vim/tmp
+    set backupdir=$HOME/.vim/tmp
+    set directory=$HOME/.vim/tmp
     try
-      source ~/.vim/mybg
+      source $HOME/.vim/mybg
     catch
     endtry
   endif
@@ -80,23 +80,20 @@ function! BgFilename()
   if has('win32')
     return $HOME.'\vimfiles\mybg'
   else
-    return '~/.vim/mybg'
+    return $HOME.'/.vim/mybg'
   fi
 endfunction
 
 function! SaveBackground()
   let f = BgFilename()
-
-  for line in readfile(f)
-    let clr = &bg
-    if clr == "dark"
-      let txt = ["set background=light"]
-      set background=light
-    else
-      let txt = ["set background=dark"]
-      set background=dark
-    endif
-  endfor
+  let clr = &bg
+  if clr == "dark"
+    let txt = ["set background=light"]
+    set background=light
+  else
+    let txt = ["set background=dark"]
+    set background=dark
+  endif
   call writefile(txt, f, "b")
 endfunction
 
@@ -152,7 +149,8 @@ if has("win32")
   endif
 else
   if has("unix")
-    let g:gruvbox_italic=1
+    "let g:gruvbox_italic=1
+    let g_gruvbox_termcolors=256
     let g_airline_theme='gruvbox'
     colorscheme gruvbox
   endif
