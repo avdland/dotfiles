@@ -12,7 +12,6 @@ if has("win32")
   set undodir=$HOME\vimfiles\tmp
   set backupdir=$HOME\vimfiles\tmp
   set directory=$HOME\vimfiles\tmp
-
   try
     source $HOME\vimfiles\mybg
   catch
@@ -88,11 +87,15 @@ function! SaveBackground()
   let f = BgFilename()
   let clr = &bg
   if clr == "dark"
-    let txt = ["set background=light"]
+    let txt = ["set background=light", "colorscheme solarized", "let g_airline_theme='solarized'"]
     set background=light
+    colorscheme solarized
+    let g_airline_theme='solarized'
   else
-    let txt = ["set background=dark"]
+    let txt = ["set background=dark", "colorscheme gruvbox", "let g_airline_theme='gruvbox'"]
     set background=dark
+    colorscheme gruvbox
+    let g_airline_theme='solarized'
   endif
   call writefile(txt, f, "b")
 endfunction
@@ -110,7 +113,7 @@ noremap <F2> :split <CR>
 noremap <F3> :vsplit <CR>
 
 " Start NERDTree by pressing F4
-" noremap <F4> :NERDTreeToggle <CR>
+noremap <F4> :NERDTreeToggle <CR>
 
 " Remove all trailing whitespace by pressing F5
 nnoremap <F9> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR> 
@@ -150,9 +153,8 @@ if has("win32")
 else
   if has("unix")
     "let g:gruvbox_italic=1
-    let g_gruvbox_termcolors=256
+    "let g_gruvbox_termcolors=256
     let g_airline_theme='gruvbox'
     colorscheme gruvbox
   endif
 endif
-
