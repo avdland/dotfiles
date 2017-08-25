@@ -154,6 +154,7 @@ else
   if has("unix")
     "let g:gruvbox_italic=1
     "let g_gruvbox_termcolors=256
+    set background=dark
     let g_airline_theme='gruvbox'
     colorscheme gruvbox
   endif
