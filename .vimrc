@@ -20,6 +20,62 @@ else
   endif
 endif
 
+if !exists('s:known_links')
+  let s:known_links = {}
+endif
+
+function! s:Find_links() " {{{1
+  " Find and remember links between highlighting groups.
+  redir => listing
+  try
+    silent highlight
+  finally
+    redir END
+  endtry
+  for line in split(listing, "\n")
+    let tokens = split(line)
+    " We're looking for lines like "String xxx links to Constant" in the
+    " output of the :highlight command.
+    if len(tokens) == 5 && tokens[1] == 'xxx' && tokens[2] == 'links' && tokens[3] == 'to'
+      let fromgroup = tokens[0]
+      let togroup = tokens[4]
+      let s:known_links[fromgroup] = togroup
+    endif
+  endfor
+endfunction
+
+function! s:Restore_links() " {{{1
+  " Restore broken links between highlighting groups.
+  redir => listing
+  try
+    silent highlight
+  finally
+    redir END
+  endtry
+  let num_restored = 0
+  for line in split(listing, "\n")
+    let tokens = split(line)
+    " We're looking for lines like "String xxx cleared" in the
+    " output of the :highlight command.
+    if len(tokens) == 3 && tokens[1] == 'xxx' && tokens[2] == 'cleared'
+      let fromgroup = tokens[0]
+      let togroup = get(s:known_links, fromgroup, '')
+      if !empty(togroup)
+        execute 'hi link' fromgroup togroup
+        let num_restored += 1
+      endif
+    endif
+  endfor
+endfunction
+
+function! s:AccurateColorscheme(colo_name)
+  call <SID>Find_links()
+  exec "colorscheme " a:colo_name
+  call <SID>Restore_links()
+endfunction
+
+command! -nargs=1 -complete=color MyColorscheme call <SID>AccurateColorscheme(<q-args>)
+
 " GUI
 set number                   " show line numbers
 set ruler                    " show ruler
@@ -79,9 +135,9 @@ fu! ToggleBackground()
   let fn = BgFilename()
   let clr = &bg
   if clr == "dark"
-    let txt = ["set background=light", "colorscheme solarized", "let g_airline_theme='solarized'"]
+    let txt = ["set background=light", "MyColorscheme solarized", "let g_airline_theme='solarized'"]
   else
-    let txt = ["set background=dark", "colorscheme gruvbox", "let g_airline_theme='gruvbox'"]
+    let txt = ["set background=dark", "MyColorscheme gruvbox", "let g_airline_theme='gruvbox'"]
   endif
   call writefile(txt, fn, "b")
   exec 'source '.fnameescape(fn)
@@ -129,7 +185,7 @@ fu! SetBg()
     catch
       set background=dark
       let g_airline_theme='gruvbox'
-      colorscheme gruvbox
+      MyColorscheme gruvbox
     endtry
 endfu
 
@@ -144,7 +200,7 @@ if has("win32")
     call SetBg()
   else
     " VIM via CMD (only 16 colors)
-    colorscheme industry
+    MyColorscheme industry
   endif
 else
   if has("unix")
