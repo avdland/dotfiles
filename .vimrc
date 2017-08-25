@@ -12,19 +12,11 @@ if has("win32")
   set undodir=$HOME\vimfiles\tmp
   set backupdir=$HOME\vimfiles\tmp
   set directory=$HOME\vimfiles\tmp
-  try
-    source $HOME\vimfiles\mybg
-  catch
-  endtry
 else
   if has("unix")
     set undodir=$HOME/.vim/tmp
     set backupdir=$HOME/.vim/tmp
     set directory=$HOME/.vim/tmp
-    try
-      source $HOME/.vim/mybg
-    catch
-    endtry
   endif
 endif
 
@@ -75,32 +67,27 @@ endfu
 " Disable line breaks for all file types
 :au BufNewFile,BufRead *.* call DisableBr()
 
-function! BgFilename()
+fu! BgFilename()
   if has('win32')
     return $HOME.'\vimfiles\mybg'
   else
     return $HOME.'/.vim/mybg'
   fi
-endfunction
+endfu
 
-function! SaveBackground()
-  let f = BgFilename()
+fu! ToggleBackground()
+  let fn = BgFilename()
   let clr = &bg
   if clr == "dark"
     let txt = ["set background=light", "colorscheme solarized", "let g_airline_theme='solarized'"]
-    set background=light
-    colorscheme solarized
-    let g_airline_theme='solarized'
   else
     let txt = ["set background=dark", "colorscheme gruvbox", "let g_airline_theme='gruvbox'"]
-    set background=dark
-    colorscheme gruvbox
-    let g_airline_theme='solarized'
   endif
-  call writefile(txt, f, "b")
-endfunction
+  call writefile(txt, fn, "b")
+  exec 'source '.fnameescape(fn)
+endfu
 
-nnoremap <F5> :call SaveBackground() <CR>
+nnoremap <F5> :call ToggleBackground() <CR>
 
 " Easy window navigation
 map <C-left> <C-w>h
@@ -136,26 +123,32 @@ command W w !sudo tee % > /dev/null
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
+fu! SetBg()
+    try
+      exec 'source '.fnameescape(BgFilename())
+    catch
+      set background=dark
+      let g_airline_theme='gruvbox'
+      colorscheme gruvbox
+    endtry
+endfu
+
 if has("win32")
-  if has("gui_running") " GVIM
-    " Removes the menubar
-    set guioptions -=m
-    " Removes the toolbar
-    set guioptions -=T
-    " Removes the scrollbar
-    set guioptions -=r
+  if has("gui_running")
+    " GVIM
+    set guioptions -=m  " remove menubar
+    set guioptions -=T  " remove toolbar
+    set guioptions -=r  " remove scrollbar
+
     let g:gruvbox_italic=0
-    let g_airline_theme='gruvbox'
-    colorscheme gruvbox
-  else " VIM via CMD
+    call SetBg()
+  else
+    " VIM via CMD (only 16 colors)
     colorscheme industry
   endif
 else
   if has("unix")
-    "let g:gruvbox_italic=1
-    "let g_gruvbox_termcolors=256
-    set background=dark
-    let g_airline_theme='gruvbox'
-    colorscheme gruvbox
+    " Linux
+    call SetBg()
   endif
 endif
