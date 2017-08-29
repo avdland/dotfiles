@@ -158,6 +158,9 @@ noremap <F3> :vsplit <CR>
 " Start NERDTree by pressing F4
 noremap <F4> :NERDTreeToggle <CR>
 
+" https://github.com/majutsushi/tagbar
+nmap <F5> :TagbarToggle <CR>
+
 " Remove all trailing whitespace by pressing F5
 nnoremap <F9> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR> 
 
