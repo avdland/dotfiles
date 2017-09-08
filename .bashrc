@@ -33,3 +33,13 @@ copy2web() {
 }
 
 alias c2w=copy2web
+
+# Pacman
+alias pacupg='pacman -Syu'            # Synchronize with repositories and then upgrade packages that are out of date on the local system.
+alias pacupd='pacman -Sy'             # Refresh of all package lists after updating /etc/pacman.d/mirrorlist
+alias pacin='pacman -S'               # Install specific package(s) from the repositories
+alias pacinu='pacman -U'              # Install specific local package(s)
+alias pacre='pacman -R'               # Remove the specified package(s), retaining its configuration(s) and required dependencies
+alias pacun='pacman -Rcsn'            # Remove the specified package(s), its configuration(s) and unneeded dependencies
+alias pacinfo='pacman -Si'            # Display information about a given package in the repositories
+alias pacse='pacman -Ss'              # Search for package(s) in the repositories
