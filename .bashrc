@@ -14,10 +14,10 @@ alias fgrep='fgrep --color=auto'
  
 # Some shortcuts for different directory listings
 alias ls='ls -hF --color=auto' # human readable, append indicator (*/=>@|)
-alias ll='ls -l' # vertical list
-alias lla='ls -al' # list all
-alias la='ls -A' # list almost all
-alias l='ls -C' # list entries by columns
+alias ll='ls -l'   # vertical list
+alias lla='ls -al' # list all vertically
+alias la='ls -A'   # list almost all horizontally (except . and ..)
+alias l='ls -C'    # list entries by columns
 
 # command line copy 2 web
 copy2web() {
