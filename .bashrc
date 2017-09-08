@@ -3,8 +3,9 @@ alias df='df -h'
 alias du='du -h'                                                                              
 
 # Misc
-alias less='less -r'
-alias whence='type -a'
+alias less='less -r' # output "raw" control characters
+alias whence='type -a' # show all
+
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -15,6 +16,8 @@ alias ll='ls -lF'
 alias lla='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+alias vi='vim'
 
 # command line copy 2 web
 copy2web() {
