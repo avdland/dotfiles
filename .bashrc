@@ -5,19 +5,19 @@ alias du='du -h'
 # Misc
 alias less='less -r' # output "raw" control characters
 alias whence='type -a' # show all
+alias vi='vim'
 
+# grep
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
  
 # Some shortcuts for different directory listings
-alias ls='ls -hF --color=auto'
-alias ll='ls -lF'
-alias lla='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-alias vi='vim'
+alias ls='ls -hF --color=auto' # human readable, append indicator (*/=>@|)
+alias ll='ls -l' # vertical list
+alias lla='ls -al' # list all
+alias la='ls -A' # list almost all
+alias l='ls -C' # list entries by columns
 
 # command line copy 2 web
 copy2web() {
