@@ -22,11 +22,11 @@ alias l='ls -C'    # list entries by columns
 # command line copy 2 web
 function copy2web() {
   if [[ $# -ne 1 ]]; then
-    echo 'usage: c2w <filename>'
+    echo "usage: c2w <filename>"
     exit 1
   fi
   if [[ ! -r "$1" ]]; then
-    echo 'file doesn\'t exist or isn\'t readable'
+    echo "file doesn't exist or isn't readable"
     exit 1
   fi
   cat $1 | curl -F 'sprunge=<-' http://sprunge.us
