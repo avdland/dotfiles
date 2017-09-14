@@ -143,7 +143,7 @@ fu! ToggleBackground()
   exec 'source '.fnameescape(fn)
 endfu
 
-nnoremap <F5> :call ToggleBackground() <CR>
+nnoremap <F6> :call ToggleBackground() <CR>
 
 " Easy window navigation
 map <C-left> <C-w>h
