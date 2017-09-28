@@ -182,6 +182,12 @@ command W w !sudo tee % > /dev/null
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
+if &term =~ '256color'
+    " Disable Background Color Erase (BCE) so that color schemes
+    " work properly when Vim is used inside tmux and GNU screen.
+    set t_ut=
+endif
+
 fu! SetBg()
     try
       exec 'source '.fnameescape(BgFilename())
