@@ -209,6 +209,7 @@ if has("win32")
     call SetBg()
   else
     " VIM via CMD (only 16 colors)
+    set noeb vb t_vb=
     MyColorscheme industry
   endif
 else
