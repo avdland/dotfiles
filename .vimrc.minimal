@@ -1,0 +1,35 @@
+" .vimrc
+filetype plugin indent on
+syntax enable
+
+" show line numbers
+set number
+" spaces instead of tabs
+set expandtab
+" tabs are 4 spaces
+set shiftwidth=4
+" show cursor row background
+set cursorline
+" show statusbar
+set laststatus=2
+" show extra info in statusbar
+set ruler
+" backspace removes eol,start,indent
+set backspace=indent,eol,start
+
+" show invisibles
+set listchars=tab:>-,trail:~,extends:>,precedes:<
+set list
+
+" keep 3 lines above/below cursor
+set scrolloff=3
+
+" colorscheme config
+set termguicolors
+set background=dark
+colorscheme gruvbox
+
+" splitting screen
+noremap <F2> :split <CR>
+noremap <F3> :vsplit <CR>
+
