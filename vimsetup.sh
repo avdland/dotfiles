@@ -1,6 +1,4 @@
 #!/bin/sh
-#
-# Setup Vim configuration and plugins for MSYS2.
 
 which git > /dev/null
 if [ $? -ne 0 ]; then
@@ -8,25 +6,25 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+install_plugin() {
+  local name="${1#*/}"
+  if [ ! -e ~/.vim/bundle/$name ]; then
+    cd ~/.vim/bundle
+    git clone git://github.com/$1.git
+  else
+    echo "Skippping $name"
+  fi
+}
+
+mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/tmp
+
 if [ ! -e ~/.vim/autoload/pathogen.vim ]; then
-  mkdir -p ~/.vim/autoload ~/.vim/bundle
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 fi
 
-if [ ! -e ~/.vim/bundle/vim-sensible ]; then
-  cd ~/.vim/bundle
-  git clone git://github.com/tpope/vim-sensible.git
-fi
-
-if [ ! -e ~/.vim/bundle/gruvbox ]; then
-  cd ~/.vim/bundle
-  git clone git://github.com/morhetz/gruvbox.git
-fi
-
-if [ ! -e ~/.vim/bundle/ctrlp.vim ]; then
-  cd ~/.vim/bundle
-  git clone git://github.com/kien/ctrlp.vim.git
-fi
+install_plugin scrooloose/nerdtree
+install_plugin morhetz/gruvbox
+install_plugin kien/ctrlp.vim
 
 if [ $1 == f ] || [ ! -e ~/.vimrc ]; then
   cat <<EOT > ~/.vimrc
@@ -34,17 +32,34 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 set list
-set listchars=tab:>-,trail:~,extends:>,precedes:<
+set listchars=tab:>-,trail:~,extends:>,precedes:<,nbsp:+
 set visualbell
 set noerrorbells
+set history=1000
+set undofile
+set undolevels=500
+set undoreload=500
+set undodir=\$HOME/.vim/tmp
+set backupdir=\$HOME/.vim/tmp
+set directory=\$HOME/.vim/tmp
 set number
 set shiftwidth=2
 set tabstop=2
+set autoindent
+set smarttab
 set expandtab
+set ruler
 set termguicolors
 set background=dark
 set cursorline
+set laststatus=2
+set scrolloff=3
 set hlsearch
 colorscheme gruvbox
+set backspace=indent,eol,start
+nmap <silent> ,/ :nohlsearch <CR>
+noremap <F2> :split <CR>
+noremap <F3> :vsplit <CR>
+noremap <F5> :NERDTreeToggle <CR>
 EOT
 fi
