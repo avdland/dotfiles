@@ -49,6 +49,7 @@ set tabstop=2
 set autoindent
 set smarttab
 set expandtab
+set cindent
 set ruler
 set termguicolors
 set background=dark
