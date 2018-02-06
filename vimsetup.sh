@@ -22,6 +22,7 @@ if [ ! -e ~/.vim/autoload/pathogen.vim ]; then
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 fi
 
+install_plugin vim-airline/vim-airline
 install_plugin scrooloose/nerdtree
 install_plugin morhetz/gruvbox
 install_plugin kien/ctrlp.vim
