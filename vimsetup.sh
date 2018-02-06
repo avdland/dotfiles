@@ -60,6 +60,6 @@ set backspace=indent,eol,start
 nmap <silent> ,/ :nohlsearch <CR>
 noremap <F2> :split <CR>
 noremap <F3> :vsplit <CR>
-noremap <F5> :NERDTreeToggle <CR>
+noremap <F4> :NERDTreeToggle <CR>
 EOT
 fi
