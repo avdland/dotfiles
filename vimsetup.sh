@@ -26,7 +26,7 @@ install_plugin scrooloose/nerdtree
 install_plugin morhetz/gruvbox
 install_plugin kien/ctrlp.vim
 
-if [ $1 == f ] || [ ! -e ~/.vimrc ]; then
+if [ "$1" == f ] || [ ! -e ~/.vimrc ]; then
   cat <<EOT > ~/.vimrc
 execute pathogen#infect()
 syntax on
