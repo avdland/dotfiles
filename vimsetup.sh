@@ -28,6 +28,7 @@ if [ ! -e ~/.vim/autoload/pathogen.vim ]; then
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 fi
 
+install_plugin tpope/vim-fugitive
 install_plugin vim-airline/vim-airline
 install_plugin scrooloose/nerdtree
 install_plugin morhetz/gruvbox
@@ -59,6 +60,8 @@ set cindent
 set ruler
 set termguicolors
 set background=dark
+let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled = 1
 set cursorline
 set laststatus=2
 set scrolloff=3
