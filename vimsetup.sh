@@ -72,5 +72,6 @@ nmap <silent> ,/ :nohlsearch <CR>
 noremap <F2> :split <CR>
 noremap <F3> :vsplit <CR>
 noremap <F4> :NERDTreeToggle <CR>
+set t_vb=
 EOT
 fi
