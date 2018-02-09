@@ -14,25 +14,10 @@ alias fgrep='fgrep --color=auto'
  
 # Some shortcuts for different directory listings
 alias ls='ls -hF --color=auto' # human readable, append indicator (*/=>@|)
-alias ll='ls -lA'   # vertical list
-alias la='ls -a'   # list almost all horizontally (except . and ..)
-alias l='ls -C'    # list entries by columns
-
-# command line copy 2 web
-function copy2web() {
-  if [[ $# -ne 1 ]]; then
-    echo "usage: c2w <filename>"
-    return 1
-  fi
-  if [[ ! -r "$1" ]]; then
-    echo "file doesn't exist or isn't readable"
-    return 1
-  fi
-  cat $1 | curl -F 'sprunge=<-' http://sprunge.us
-  return 0
-}
-
-alias c2w='copy2web'
+alias ll='ls -l'   # vertical list
+alias la='ls -A'   # list almost all horizontally (except . and ..)
+alias l='ls -CF'    # list entries by columns
+alias lla='ls -lA'
 
 # Pacman
 alias pacupg='pacman -Syu'            # Synchronize with repositories and then upgrade packages that are out of date on the local system.
@@ -43,3 +28,21 @@ alias pacre='pacman -R'               # Remove the specified package(s), retaini
 alias pacun='pacman -Rcsn'            # Remove the specified package(s), its configuration(s) and unneeded dependencies
 alias pacinfo='pacman -Si'            # Display information about a given package in the repositories
 alias pacse='pacman -Ss'              # Search for package(s) in the repositories
+
+cd_func() {
+  case $# in
+    0)
+      cd
+      ;;
+    1)
+      cd "$1"
+      ;;
+    2)
+      cd "$1/$2"
+      ;;
+  esac
+}
+
+alias cd='cd_func'
+alias cdd="cd /c/Users/$USER/Downloads"
+alias cdp='cd /c/projects'
