@@ -72,6 +72,7 @@ nmap <silent> ,/ :nohlsearch <CR>
 noremap <F2> :split <CR>
 noremap <F3> :vsplit <CR>
 noremap <F4> :NERDTreeToggle <CR>
+noremap <F5> :.!xmllint --format - 2>/dev/null <CR>
 set t_vb=
 EOT
 fi
