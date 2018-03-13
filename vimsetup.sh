@@ -17,6 +17,7 @@ install_plugin() {
   if [ ! -e ~/.vim/bundle/$name ]; then
     cd ~/.vim/bundle
     git clone git://github.com/$1.git
+    cd -
   else
     echo "Skippping $name"
   fi
@@ -25,7 +26,9 @@ install_plugin() {
 mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/tmp
 
 if [ ! -e ~/.vim/autoload/pathogen.vim ]; then
-  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  cd ~/.vim/autoload
+  wget https://tpo.pe/pathogen.vim
+  cd -
 fi
 
 install_plugin tpope/vim-fugitive
