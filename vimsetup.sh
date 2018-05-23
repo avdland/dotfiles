@@ -36,7 +36,6 @@ install_plugin vim-airline/vim-airline
 install_plugin scrooloose/nerdtree
 install_plugin morhetz/gruvbox
 install_plugin kien/ctrlp.vim
-install_plugin martinda/Jenkinsfile-vim-syntax
 
 if [ "$1" == f ] || [ ! -e ~/.vimrc ]; then
   cat <<EOT > ~/.vimrc
