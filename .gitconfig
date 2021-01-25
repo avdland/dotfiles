@@ -1,0 +1,10 @@
+[alias]
+    co = checkout
+    st = status
+    cm = commit -m
+    ci = commit
+    df = diff
+    dc = diff --cached
+    cp = cherry-pick
+    br = branch
+    nuke = "!f(){ git reset --hard HEAD && git clean -f -d; };f"
