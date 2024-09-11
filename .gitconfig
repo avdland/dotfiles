@@ -1,10 +1,16 @@
+[user]
+	email = <email>
+	name = <name>
 [alias]
-    co = checkout
-    st = status
-    cm = commit -m
-    ci = commit
-    df = diff
-    dc = diff --cached
-    cp = cherry-pick
-    br = branch
-    nuke = "!f(){ git reset --hard HEAD && git clean -f -d; };f"
+	co = checkout
+	st = status
+	cm = commit --message
+	csm = commit --signoff --message
+	cp = cherry-pick
+	df = diff
+	dc = diff --cached
+[core]
+	excludesFile = ~/.gitignore
+	editor = vim
+[push]
+	autoSetupRemote = true
