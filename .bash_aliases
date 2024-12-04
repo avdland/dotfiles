@@ -1,5 +1,3 @@
-#!/bin/bash
-
 alias lla='ls -lah'
 
 alias cdp='cd ~/projects'
