@@ -1,8 +1,16 @@
 #!/bin/bash
 
-alias lla='ll -a'
+alias lla='ls -lah'
+
 alias cdp='cd ~/projects'
-alias dps="docker ps | awk '{print \$NF}'"
+alias cdd='cd ~/Downloads'
+
+alias dps="docker ps | awk '{print \$NF'"
+alias ff="find . -name $1"
+alias mcp='mvn clean package -DskipTests'
+
+alias grc='git reset --hard && git clean -f -d'
+alias gca='git commit --amend --no-edit'
 
 cd_gitroot()
 {
@@ -26,41 +34,14 @@ cd_gitroot()
     return 1
   fi
 }
+alias cdgr=cd_gitroot
 
-git_pull_develop()
-{
-  for dir in $(find . -maxdepth 1 -type d)
-  do
-    ( [ ${#dir} -lt 3 ] || [ ${dir:0:3} == "./." ] ) && continue || true
-    echo "$dir"
-    pushd $dir &> /dev/null
+alias k=kubectl
+complete -o default -F __start_kubectl k
 
-    if [ ! -d .git ]; then
-      popd &> /dev/null
-      continue
-    fi
-
-    BRANCH=`git branch | grep \* | cut -d ' ' -f2`
-    if [ "$BRANCH" != "develop" ]; then
-      git checkout develop
-    fi
-
-    HAS_CHANGES=`git diff-index --name-only HEAD --`
-    if [ -n "$HAS_CHANGES" ]; then
-      git stash
-    fi
-
-    git pull --rebase
-
-    if [ -n "$HAS_CHANGES" ]; then
-      git stash pop
-    fi
-
-    popd &> /dev/null
-  done
-
-  echo "Finished successfully"
-}
-
-alias cdr=cd_gitroot
-alias gpd=git_pull_develop
+alias kn=kubens
+alias kx=kubectx
+alias kdp='kubectl describe pod'
+alias kgp='kubectl get pod'
+alias kgpvc='kubectl get pvc'
+alias keti='kubectl exec -ti'
