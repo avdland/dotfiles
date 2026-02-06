@@ -3,8 +3,8 @@ alias lla='ls -lah'
 alias cdp='cd ~/projects'
 alias cdd='cd ~/Downloads'
 
-alias dps="docker ps | awk '{print \$NF'"
-alias ff="find . -name $1"
+alias rg='rg --hidden --glob "!.git"'
+alias ff='find . -name'
 alias mcp='mvn clean package -DskipTests'
 
 alias grc='git reset --hard && git clean -f -d'
