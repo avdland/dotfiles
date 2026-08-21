@@ -3,8 +3,6 @@ alias lla='ls -lah'
 alias cdp='cd ~/projects'
 alias cdd='cd ~/Downloads'
 
-alias ag='ag --hidden --ignore .git'
-alias rg='rg --hidden --glob "!.git"'
 alias ff='find . -name'
 alias mcp='mvn clean package -DskipTests'
 
