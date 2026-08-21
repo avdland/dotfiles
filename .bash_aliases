@@ -8,7 +8,7 @@ alias rg='rg --hidden --glob "!.git"'
 alias ff='find . -name'
 alias mcp='mvn clean package -DskipTests'
 
-alias grc='git reset --hard && git clean -f -d'
+alias grc='git reset --hard && git clean -fdX'
 alias gca='git commit --amend --no-edit'
 
 cd_gitroot()
@@ -44,3 +44,14 @@ alias kdp='kubectl describe pod'
 alias kgp='kubectl get pod'
 alias kgpvc='kubectl get pvc'
 alias keti='kubectl exec -ti'
+
+alias rg='rg --hidden --glob "!.git"'
+alias ag='ag --hidden --ignore .git'
+
+dr() {
+  shell="/bin/bash"
+  if ! docker run --rm --entrypoint "$shell" "$1" -c "exit" >/dev/null 2>&1; then
+    shell="/bin/sh"
+  fi
+  docker run --entrypoint "$shell" -it "$@"
+}
