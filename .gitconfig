@@ -9,6 +9,12 @@
 	cp = cherry-pick
 	df = diff
 	dc = diff --cached
+	# Enhanced `git show`:
+	# - `git sh` behaves exactly like `git show`
+	# - `git sh <n>` shows `<n>` lines of diff context (equivalent to `git show -U<n>`)
+	# - Non-numeric arguments are passed through unchanged, e.g. `git sh HEAD~1`
+	# - Numeric context and revision can be combined, e.g. `git sh 20 HEAD~1`
+	sh = "!f() { if [ $# -gt 0 ] && [ \"$1\" = \"${1##*[!0-9]*}\" ]; then c=$1; shift; git show -U$c \"$@\"; else git show \"$@\"; fi; }; f"
 [core]
 	excludesFile = ~/.gitignore
 	editor = vim
